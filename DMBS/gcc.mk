@@ -107,6 +107,9 @@ endif
 # Create a list of dependency files from the list of object files
 DEPENDENCY_FILES := $(OBJECT_FILES:%.o=%.d)
 
+# List of .lst files for cleaning
+LISTING_FILES := $(OBJECT_FILES:%.o=%.lst)
+
 # Create a list of common flags to pass to the compiler/linker/assembler
 BASE_CC_FLAGS    := -pipe -g$(DEBUG_FORMAT) -g$(DEBUG_LEVEL)
 ifneq ($(findstring $(ARCH), AVR8 XMEGA),)
@@ -188,6 +191,8 @@ mostlyclean:
 	rm -f $(OBJECT_FILES)
 	@echo $(MSG_REMOVE_CMD) Removing dependency files of \"$(TARGET)\"
 	rm -f $(DEPENDENCY_FILES)
+	@echo $(MSG_REMOVE_CMD) Removing listing files of \"$(TARGET)\"
+	rm -f $(LISTING_FILES)
 
 # Cleans all build files, leaving only the original source code
 clean: mostlyclean
